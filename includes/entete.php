@@ -35,6 +35,7 @@ $roleActuel = $_SESSION['utilisateur_role'] ?? 'consultant';
                 <li class="nav-item"><a class="nav-link" href="biens.php"><i class="bi bi-houses"></i> Biens & terrains</a></li>
                 <li class="nav-item"><a class="nav-link" href="taxations.php"><i class="bi bi-receipt"></i> Taxations</a></li>
                 <?php if (in_array($roleActuel, ['administrateur', 'agent'], true)): ?>
+                <li class="nav-item"><a class="nav-link" href="calcul_cfpb_cfpnb.php"><i class="bi bi-calculator"></i> Calcul CFPB/CFPNB</a></li>
                 <li class="nav-item"><a class="nav-link" href="paiements.php"><i class="bi bi-cash-coin"></i> Paiements</a></li>
                 <?php endif; ?>
                 <?php if ($roleActuel === 'administrateur'): ?>
