@@ -79,7 +79,7 @@ impots-locaux-sn/
 - [x] Étape 2 — Base de données (schéma + données de démo)
 - [x] Étape 3 — Connexion à la base
 - [x] Étape 4 — Authentification, session sécurisée, rôles et journal d'audit
-- [ ] Étape 5 — Gestion du patrimoine (biens, terrains, véhicules)
+- [x] Étape 5 — Gestion du patrimoine (contribuables + biens)
 - [ ] Étape 6 — Calcul CFPB / CFPNB
 - [ ] Étape 7 — Calcul Patente
 - [ ] Étape 8 — Calcul TEOM et vignette
