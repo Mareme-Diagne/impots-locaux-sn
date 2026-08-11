@@ -1,122 +1,200 @@
-/* style.css — mise en page en sidebar */
+/* style.css — identité visuelle ImpôtsLocaux-SN
+   Palette : marine institutionnel + accent doré (sceau administratif), sobre et professionnel. */
 
 :root {
-    --sidebar-largeur: 240px;
-    --couleur-fond-sidebar: #1e293b;
-    --couleur-accent: #2563eb;
+    --sidebar-largeur: 250px;
+
+    --couleur-fond: #f4f5f9;
+    --couleur-surface: #ffffff;
+    --couleur-sidebar: #131c33;
+    --couleur-sidebar-hover: #1d2a4a;
+    --couleur-accent: #b8862e;
+    --couleur-accent-doux: #f6ecd9;
+    --couleur-texte: #1a2233;
+    --couleur-texte-attenue: #667085;
+    --couleur-bordure: #e4e7ee;
+
+    --rayon: 0.65rem;
+    --ombre: 0 1px 2px rgba(16, 24, 40, .05), 0 4px 12px rgba(16, 24, 40, .06);
+
+    --police-titre: 'Fraunces', Georgia, serif;
+    --police-texte: 'Inter', -apple-system, sans-serif;
 }
 
 body {
-    background-color: #f5f7fa;
+    background-color: var(--couleur-fond);
+    color: var(--couleur-texte);
+    font-family: var(--police-texte);
     margin: 0;
+    -webkit-font-smoothing: antialiased;
 }
 
-.app-layout {
-    display: flex;
-    min-height: 100vh;
-}
+h1, h2, h3 { font-family: var(--police-titre); font-weight: 600; letter-spacing: -0.01em; }
+h1.h3, .h3 { font-size: 1.6rem; }
+h2.h5, .h5 { font-family: var(--police-texte); font-weight: 700; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.03em; color: var(--couleur-texte-attenue); margin-top: 1.75rem; }
+
+.app-layout { display: flex; min-height: 100vh; }
 
 /* --- Sidebar --- */
 .sidebar {
     width: var(--sidebar-largeur);
-    background-color: var(--couleur-fond-sidebar);
-    color: #cbd5e1;
+    background-color: var(--couleur-sidebar);
+    color: #a8b0c3;
     display: flex;
     flex-direction: column;
     position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
+    top: 0; bottom: 0; left: 0;
     z-index: 1030;
     transition: transform 0.2s ease-in-out;
 }
 
 .sidebar-header {
-    padding: 1.25rem 1rem;
-    font-weight: 700;
-    font-size: 1.05rem;
+    padding: 1.4rem 1.25rem;
+    font-family: var(--police-titre);
+    font-weight: 600;
+    font-size: 1.15rem;
     color: #fff;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 .sidebar-header i { color: var(--couleur-accent); margin-right: 0.5rem; }
 
-.sidebar-nav {
-    flex: 1;
-    padding: 0.75rem 0.5rem;
-    overflow-y: auto;
-}
+.sidebar-nav { flex: 1; padding: 1rem 0.75rem; overflow-y: auto; }
 
 .sidebar-nav a {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
-    padding: 0.55rem 0.75rem;
+    gap: 0.65rem;
+    padding: 0.6rem 0.85rem;
     border-radius: 0.5rem;
-    color: #cbd5e1;
+    color: #a8b0c3;
     text-decoration: none;
-    font-size: 0.92rem;
-    margin-bottom: 0.15rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+    border-left: 3px solid transparent;
+    transition: background-color 0.15s, color 0.15s;
 }
-.sidebar-nav a:hover { background-color: rgba(255, 255, 255, 0.06); color: #fff; }
-.sidebar-nav a.active { background-color: var(--couleur-accent); color: #fff; }
+.sidebar-nav a:hover { background-color: var(--couleur-sidebar-hover); color: #fff; }
+.sidebar-nav a.active {
+    background-color: var(--couleur-sidebar-hover);
+    color: #fff;
+    border-left-color: var(--couleur-accent);
+}
 
 .sidebar-section-title {
-    font-size: 0.7rem;
+    font-size: 0.68rem;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: #64748b;
-    padding: 1rem 0.75rem 0.35rem;
+    letter-spacing: 0.08em;
+    color: #5b6379;
+    padding: 1.1rem 0.85rem 0.4rem;
 }
 
-.sidebar-footer {
-    padding: 0.9rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-.sidebar-user-name { color: #fff; font-size: 0.9rem; font-weight: 600; }
+.sidebar-footer { padding: 1rem; border-top: 1px solid rgba(255,255,255,0.08); }
+.sidebar-user-name { color: #fff; font-size: 0.88rem; font-weight: 600; }
+.sidebar-footer .badge { background-color: rgba(255,255,255,0.1) !important; font-weight: 500; }
+.sidebar-footer .btn-outline-light { border-color: rgba(255,255,255,0.25); }
+.sidebar-footer .btn-outline-light:hover { background-color: var(--couleur-accent); border-color: var(--couleur-accent); }
 
 /* --- Zone de contenu --- */
-.content-wrapper {
-    margin-left: var(--sidebar-largeur);
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    min-width: 0; /* évite que les tableaux larges cassent la mise en page */
-}
-
-.content-main {
-    padding: 1.5rem;
-    flex: 1;
-}
+.content-wrapper { margin-left: var(--sidebar-largeur); flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.content-main { padding: 2rem; flex: 1; }
 
 .topbar {
-    display: none;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.75rem 1rem;
-    background: #fff;
-    border-bottom: 1px solid #e2e8f0;
-    position: sticky;
-    top: 0;
-    z-index: 1020;
+    display: none; align-items: center; gap: 0.75rem;
+    padding: 0.75rem 1rem; background: var(--couleur-surface);
+    border-bottom: 1px solid var(--couleur-bordure);
+    position: sticky; top: 0; z-index: 1020;
 }
 
-.carte-kpi { border-radius: 0.75rem; }
+/* --- Cartes --- */
+.card {
+    border: 1px solid var(--couleur-bordure);
+    border-radius: var(--rayon);
+    box-shadow: var(--ombre);
+}
+.carte-kpi {
+    border-radius: var(--rayon);
+    border: 1px solid var(--couleur-bordure);
+    border-top: 3px solid var(--couleur-accent);
+    background-color: var(--couleur-surface) !important;
+    box-shadow: var(--ombre);
+    color: var(--couleur-texte) !important;
+}
+.carte-kpi .fs-2, .carte-kpi .fs-4 { font-family: var(--police-titre); font-weight: 600; }
+.carte-kpi div:last-child { color: var(--couleur-texte-attenue); font-size: 0.85rem; font-weight: 500; }
+/* on neutralise les couleurs Bootstrap "pleines" (primary/info/success/danger) devenues trop criardes
+   sur fond blanc, au profit d'un léger liseré de couleur en haut de carte à la place */
+.carte-kpi.text-bg-primary { border-top-color: #2f4e8c; }
+.carte-kpi.text-bg-info    { border-top-color: #2a8a9e; }
+.carte-kpi.text-bg-success { border-top-color: #2f8f5b; }
+.carte-kpi.text-bg-danger  { border-top-color: #b3403f; }
 
-/* --- Responsive : sidebar hors-écran sur mobile, ouverte via le bouton --- */
+/* --- Tableaux --- */
+.table { background-color: var(--couleur-surface); border-radius: var(--rayon); overflow: hidden; }
+.table thead th {
+    background-color: #fafbfc;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--couleur-texte-attenue);
+    font-weight: 700;
+    border-bottom: 1px solid var(--couleur-bordure);
+    padding: 0.85rem 0.9rem;
+}
+.table td { padding: 0.75rem 0.9rem; vertical-align: middle; border-color: var(--couleur-bordure); }
+.table-striped > tbody > tr:nth-of-type(odd) > * { background-color: #fbfbfd; }
+.table-responsive { background: var(--couleur-surface); border-radius: var(--rayon); border: 1px solid var(--couleur-bordure); box-shadow: var(--ombre); }
+.table-responsive .table { border: none; box-shadow: none; margin-bottom: 0; }
+
+/* --- Badges (statuts) : versions "douces" plutôt que couleurs pleines --- */
+.badge.text-bg-secondary { background-color: #eef0f4 !important; color: #4b5162 !important; }
+.badge.text-bg-success   { background-color: #e4f5eb !important; color: #1f7a4d !important; }
+.badge.text-bg-warning   { background-color: #fdf1de !important; color: #96660f !important; }
+.badge.text-bg-danger    { background-color: #fbe9e8 !important; color: #a5322f !important; }
+.badge.bg-info           { background-color: var(--couleur-accent-doux) !important; color: #8a611f !important; }
+
+/* --- Boutons --- */
+.btn { border-radius: 0.5rem; font-weight: 500; font-size: 0.9rem; }
+.btn-primary { background-color: var(--couleur-sidebar); border-color: var(--couleur-sidebar); }
+.btn-primary:hover { background-color: var(--couleur-sidebar-hover); border-color: var(--couleur-sidebar-hover); }
+.btn-outline-primary { color: var(--couleur-sidebar); border-color: var(--couleur-bordure); }
+.btn-outline-primary:hover { background-color: var(--couleur-sidebar); border-color: var(--couleur-sidebar); }
+
+/* --- Formulaires --- */
+.form-control, .form-select {
+    border-radius: 0.5rem;
+    border-color: var(--couleur-bordure);
+    font-size: 0.92rem;
+}
+.form-control:focus, .form-select:focus {
+    border-color: var(--couleur-accent);
+    box-shadow: 0 0 0 3px var(--couleur-accent-doux);
+}
+.form-label { font-weight: 600; font-size: 0.85rem; color: var(--couleur-texte); }
+
+/* --- Alertes --- */
+.alert { border-radius: var(--rayon); border: 1px solid transparent; }
+.alert-success { background-color: #e4f5eb; color: #1f7a4d; }
+.alert-danger  { background-color: #fbe9e8; color: #a5322f; }
+.alert-warning { background-color: #fdf1de; color: #96660f; }
+.alert-info, .alert-light { background-color: #f4f5f9; color: var(--couleur-texte-attenue); border-color: var(--couleur-bordure); }
+
+/* --- Pagination --- */
+.pagination .page-link { border-color: var(--couleur-bordure); color: var(--couleur-texte); }
+.pagination .page-item.active .page-link { background-color: var(--couleur-sidebar); border-color: var(--couleur-sidebar); }
+
+/* --- Page de connexion --- */
+body.page-connexion { background-color: var(--couleur-fond); font-family: var(--police-texte); }
+body.page-connexion h1 { font-family: var(--police-titre); }
+body.page-connexion .card { box-shadow: var(--ombre); }
+
+/* --- Responsive : sidebar hors-écran sur mobile --- */
 @media (max-width: 991.98px) {
-    .sidebar {
-        transform: translateX(-100%);
-    }
-    .sidebar.sidebar-ouverte {
-        transform: translateX(0);
-    }
-    .content-wrapper {
-        margin-left: 0;
-    }
-    .topbar {
-        display: flex;
-    }
-    .carte-kpi {
-        margin-bottom: 1rem;
-    }
+    .sidebar { transform: translateX(-100%); }
+    .sidebar.sidebar-ouverte { transform: translateX(0); }
+    .content-wrapper { margin-left: 0; }
+    .topbar { display: flex; }
+    .content-main { padding: 1.25rem; }
+    .carte-kpi { margin-bottom: 1rem; }
 }
