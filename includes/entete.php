@@ -2,14 +2,16 @@
 /**
  * entete.php
  * ----------
- * Barre de navigation commune à toutes les pages protégées.
- * A inclure APRES avoir appelé exigerConnexion(), pour que
- * $_SESSION['utilisateur_role'] soit toujours disponible ici.
- *
- * Le menu s'adapte au rôle : un "consultant" ne voit pas les liens
- * de saisie ou de configuration des taux, réservés à l'agent/l'admin.
+ * Structure commune : sidebar fixe à gauche + zone de contenu à droite.
+ * A inclure APRES avoir appelé exigerConnexion().
  */
 $roleActuel = $_SESSION['utilisateur_role'] ?? 'consultant';
+$pageActuelle = basename($_SERVER['PHP_SELF']);
+
+function lienActif(string $fichier, string $pageActuelle): string
+{
+    return $fichier === $pageActuelle ? 'active' : '';
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -22,32 +24,62 @@ $roleActuel = $_SESSION['utilisateur_role'] ?? 'consultant';
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="index.php">ImpôtsLocaux-SN</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="menuPrincipal">
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item"><a class="nav-link" href="index.php"><i class="bi bi-speedometer2"></i> Tableau de bord</a></li>
-                <li class="nav-item"><a class="nav-link" href="contribuables.php"><i class="bi bi-people"></i> Contribuables</a></li>
-                <li class="nav-item"><a class="nav-link" href="biens.php"><i class="bi bi-houses"></i> Biens & terrains</a></li>
-                <li class="nav-item"><a class="nav-link" href="taxations.php"><i class="bi bi-receipt"></i> Taxations</a></li>
-                <?php if (in_array($roleActuel, ['administrateur', 'agent'], true)): ?>
-                <li class="nav-item"><a class="nav-link" href="calcul_cfpb_cfpnb.php"><i class="bi bi-calculator"></i> Calcul CFPB/CFPNB</a></li>
-                <li class="nav-item"><a class="nav-link" href="paiements.php"><i class="bi bi-cash-coin"></i> Paiements</a></li>
-                <?php endif; ?>
-                <?php if ($roleActuel === 'administrateur'): ?>
-                <li class="nav-item"><a class="nav-link" href="bareme.php"><i class="bi bi-sliders"></i> Barème des taux</a></li>
-                <?php endif; ?>
-            </ul>
-            <span class="navbar-text text-light me-3">
-                <?= e($_SESSION['utilisateur_nom'] ?? '') ?>
-                <span class="badge bg-secondary text-uppercase"><?= e($roleActuel) ?></span>
-            </span>
-            <a href="deconnexion.php" class="btn btn-outline-light btn-sm"><i class="bi bi-box-arrow-right"></i> Déconnexion</a>
+<div class="app-layout">
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <i class="bi bi-bank2"></i> <span>ImpôtsLocaux-SN</span>
         </div>
-    </div>
-</nav>
-<main class="container-fluid py-4">
+
+        <nav class="sidebar-nav">
+            <a href="index.php" class="<?= lienActif('index.php', $pageActuelle) ?>">
+                <i class="bi bi-speedometer2"></i> Tableau de bord
+            </a>
+            <a href="contribuables.php" class="<?= lienActif('contribuables.php', $pageActuelle) ?>">
+                <i class="bi bi-people"></i> Contribuables
+            </a>
+            <a href="biens.php" class="<?= lienActif('biens.php', $pageActuelle) ?>">
+                <i class="bi bi-houses"></i> Biens & terrains
+            </a>
+            <a href="taxations.php" class="<?= lienActif('taxations.php', $pageActuelle) ?>">
+                <i class="bi bi-receipt"></i> Taxations
+            </a>
+
+            <?php if (in_array($roleActuel, ['administrateur', 'agent'], true)): ?>
+                <div class="sidebar-section-title">Calculs</div>
+                <a href="calcul_cfpb_cfpnb.php" class="<?= lienActif('calcul_cfpb_cfpnb.php', $pageActuelle) ?>">
+                    <i class="bi bi-calculator"></i> CFPB / CFPNB
+                </a>
+                <a href="paiements.php" class="<?= lienActif('paiements.php', $pageActuelle) ?>">
+                    <i class="bi bi-cash-coin"></i> Paiements
+                </a>
+            <?php endif; ?>
+
+            <?php if ($roleActuel === 'administrateur'): ?>
+                <div class="sidebar-section-title">Administration</div>
+                <a href="bareme.php" class="<?= lienActif('bareme.php', $pageActuelle) ?>">
+                    <i class="bi bi-sliders"></i> Barème des taux
+                </a>
+            <?php endif; ?>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="sidebar-user">
+                <div class="sidebar-user-name"><?= e($_SESSION['utilisateur_nom'] ?? '') ?></div>
+                <span class="badge bg-secondary text-uppercase"><?= e($roleActuel) ?></span>
+            </div>
+            <a href="deconnexion.php" class="btn btn-outline-light btn-sm w-100 mt-2">
+                <i class="bi bi-box-arrow-right"></i> Déconnexion
+            </a>
+        </div>
+    </aside>
+
+    <div class="content-wrapper">
+        <header class="topbar d-lg-none">
+            <button id="boutonBasculerSidebar" class="btn btn-outline-secondary btn-sm">
+                <i class="bi bi-list"></i>
+            </button>
+            <span class="fw-semibold">ImpôtsLocaux-SN</span>
+        </header>
+
+        <main class="content-main">

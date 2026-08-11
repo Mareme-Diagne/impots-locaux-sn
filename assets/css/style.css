@@ -1,18 +1,121 @@
-/* style.css — quelques réglages simples au-dessus de Bootstrap */
+/* style.css — mise en page en sidebar */
 
-body.page-connexion {
+:root {
+    --sidebar-largeur: 240px;
+    --couleur-fond-sidebar: #1e293b;
+    --couleur-accent: #2563eb;
+}
+
+body {
     background-color: #f5f7fa;
+    margin: 0;
 }
 
-.navbar-brand {
-    font-weight: 600;
+.app-layout {
+    display: flex;
+    min-height: 100vh;
 }
 
-.carte-kpi {
-    border-radius: 0.75rem;
+/* --- Sidebar --- */
+.sidebar {
+    width: var(--sidebar-largeur);
+    background-color: var(--couleur-fond-sidebar);
+    color: #cbd5e1;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1030;
+    transition: transform 0.2s ease-in-out;
 }
 
-@media (max-width: 576px) {
+.sidebar-header {
+    padding: 1.25rem 1rem;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: #fff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.sidebar-header i { color: var(--couleur-accent); margin-right: 0.5rem; }
+
+.sidebar-nav {
+    flex: 1;
+    padding: 0.75rem 0.5rem;
+    overflow-y: auto;
+}
+
+.sidebar-nav a {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.55rem 0.75rem;
+    border-radius: 0.5rem;
+    color: #cbd5e1;
+    text-decoration: none;
+    font-size: 0.92rem;
+    margin-bottom: 0.15rem;
+}
+.sidebar-nav a:hover { background-color: rgba(255, 255, 255, 0.06); color: #fff; }
+.sidebar-nav a.active { background-color: var(--couleur-accent); color: #fff; }
+
+.sidebar-section-title {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #64748b;
+    padding: 1rem 0.75rem 0.35rem;
+}
+
+.sidebar-footer {
+    padding: 0.9rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.sidebar-user-name { color: #fff; font-size: 0.9rem; font-weight: 600; }
+
+/* --- Zone de contenu --- */
+.content-wrapper {
+    margin-left: var(--sidebar-largeur);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0; /* évite que les tableaux larges cassent la mise en page */
+}
+
+.content-main {
+    padding: 1.5rem;
+    flex: 1;
+}
+
+.topbar {
+    display: none;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: #fff;
+    border-bottom: 1px solid #e2e8f0;
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+}
+
+.carte-kpi { border-radius: 0.75rem; }
+
+/* --- Responsive : sidebar hors-écran sur mobile, ouverte via le bouton --- */
+@media (max-width: 991.98px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+    .sidebar.sidebar-ouverte {
+        transform: translateX(0);
+    }
+    .content-wrapper {
+        margin-left: 0;
+    }
+    .topbar {
+        display: flex;
+    }
     .carte-kpi {
         margin-bottom: 1rem;
     }
