@@ -52,6 +52,9 @@ function lienActif(string $fichier, string $pageActuelle): string
                 <a href="calcul_cfpb_cfpnb.php" class="<?= lienActif('calcul_cfpb_cfpnb.php', $pageActuelle) ?>">
                     <i class="bi bi-calculator"></i> CFPB / CFPNB
                 </a>
+                <a href="calcul_patente.php" class="<?= lienActif('calcul_patente.php', $pageActuelle) ?>">
+                    <i class="bi bi-briefcase"></i> Patente
+                </a>
                 <a href="paiements.php" class="<?= lienActif('paiements.php', $pageActuelle) ?>">
                     <i class="bi bi-cash-coin"></i> Paiements
                 </a>

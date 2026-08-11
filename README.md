@@ -81,7 +81,7 @@ impots-locaux-sn/
 - [x] Étape 4 — Authentification, session sécurisée, rôles et journal d'audit
 - [x] Étape 5 — Gestion du patrimoine (contribuables + biens)
 - [x] Étape 6 — Calcul CFPB / CFPNB
-- [ ] Étape 7 — Calcul Patente
+- [x] Étape 7 — Calcul Patente
 - [ ] Étape 8 — Calcul TEOM et vignette
 - [ ] Étape 9 — Tableau de bord et graphiques
 - [ ] Étape 10 — Exports PDF / CSV
