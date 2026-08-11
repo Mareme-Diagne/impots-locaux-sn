@@ -5,7 +5,6 @@ require_once __DIR__ . '/../includes/auth.php';
 
 demarrerSession();
 
-// Si l'utilisateur est déjà connecté, pas besoin de repasser par ici.
 if (!empty($_SESSION['utilisateur_id'])) {
     rediriger('/impots-locaux-sn/public/index.php');
 }
@@ -16,12 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $identifiant     = trim((string) ($_POST['identifiant'] ?? ''));
     $motDePasseSaisi = (string) ($_POST['mot_de_passe'] ?? '');
 
-    // --- Validation côté serveur (indispensable : la validation JS peut être contournée) ---
     if ($identifiant === '' || $motDePasseSaisi === '') {
         $messageErreur = 'Veuillez renseigner votre identifiant et votre mot de passe.';
     } else {
-        // Ralentissement simple contre les attaques par force brute : on limite
-        // les tentatives à 5 par minute par session.
         $_SESSION['tentatives_connexion'] ??= [];
         $_SESSION['tentatives_connexion'] = array_filter(
             $_SESSION['tentatives_connexion'],
@@ -90,9 +86,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Validation côté client : bloque l'envoi si les champs sont vides,
-        // et affiche les messages Bootstrap. La validation côté serveur
-        // (ci-dessus en PHP) reste la vraie protection.
         const formulaire = document.getElementById('formulaireConnexion');
         formulaire.addEventListener('submit', function (evenement) {
             if (!formulaire.checkValidity()) {
