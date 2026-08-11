@@ -55,6 +55,9 @@ function lienActif(string $fichier, string $pageActuelle): string
                 <a href="calcul_patente.php" class="<?= lienActif('calcul_patente.php', $pageActuelle) ?>">
                     <i class="bi bi-briefcase"></i> Patente
                 </a>
+                <a href="calcul_teom_vignette.php" class="<?= lienActif('calcul_teom_vignette.php', $pageActuelle) ?>">
+                    <i class="bi bi-trash3"></i> TEOM / Vignette
+                </a>
                 <a href="paiements.php" class="<?= lienActif('paiements.php', $pageActuelle) ?>">
                     <i class="bi bi-cash-coin"></i> Paiements
                 </a>

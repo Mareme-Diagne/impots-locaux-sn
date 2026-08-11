@@ -82,7 +82,7 @@ impots-locaux-sn/
 - [x] Étape 5 — Gestion du patrimoine (contribuables + biens)
 - [x] Étape 6 — Calcul CFPB / CFPNB
 - [x] Étape 7 — Calcul Patente
-- [ ] Étape 8 — Calcul TEOM et vignette
+- [x] Étape 8 — Calcul TEOM et vignette
 - [ ] Étape 9 — Tableau de bord et graphiques
 - [ ] Étape 10 — Exports PDF / CSV
 - [ ] Étape 11 — Sécurisation, responsive, finitions
