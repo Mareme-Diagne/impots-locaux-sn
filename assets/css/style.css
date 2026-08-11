@@ -1,0 +1,19 @@
+/* style.css — quelques réglages simples au-dessus de Bootstrap */
+
+body.page-connexion {
+    background-color: #f5f7fa;
+}
+
+.navbar-brand {
+    font-weight: 600;
+}
+
+.carte-kpi {
+    border-radius: 0.75rem;
+}
+
+@media (max-width: 576px) {
+    .carte-kpi {
+        margin-bottom: 1rem;
+    }
+}

@@ -1,0 +1,10 @@
+# Fichiers sensibles / locaux — à ne jamais versionner
+config/config.local.php
+*.log
+.DS_Store
+Thumbs.db
+
+# Dossiers générés
+/exports/*.pdf
+/exports/*.csv
+!exports/.gitkeep
