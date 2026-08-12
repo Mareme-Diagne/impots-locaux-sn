@@ -464,14 +464,23 @@ body.page-connexion .card {
     justify-content: space-between;
 }
 .sidebar-close-btn {
-    background: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: transparent;
     border: none;
+    box-shadow: none;
+    outline: none;
     color: #a8b0c3;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     line-height: 1;
-    padding: 0.25rem;
+    padding: 0.25rem 0.4rem;
+    border-radius: 0.4rem;
 }
-.sidebar-close-btn:hover { color: #fff; }
+.sidebar-close-btn:hover,
+.sidebar-close-btn:focus {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.08);
+}
 
 .sidebar-overlay {
     display: none;
