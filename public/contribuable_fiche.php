@@ -12,8 +12,7 @@ $requete->execute(['id' => $id]);
 $contribuable = $requete->fetch();
 
 if (!$contribuable) {
-    http_response_code(404);
-    die('Contribuable introuvable.');
+    rediriger('erreur_404.php');
 }
 
 $biens = $pdo->prepare('SELECT * FROM biens_immobiliers WHERE contribuable_id = :id ORDER BY designation');

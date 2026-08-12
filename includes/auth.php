@@ -26,7 +26,7 @@ function demarrerSession(): void
         // une fois en production (secure), ce qui limite le vol de session.
         session_set_cookie_params([
             'lifetime' => 0,
-            'path'     => '/',
+            'path' => '/',
             'httponly' => true,
             'samesite' => 'Lax',
         ]);
@@ -83,8 +83,8 @@ function ouvrirSessionUtilisateur(array $utilisateur): void
     // contre la "fixation de session", une technique d'attaque classique).
     session_regenerate_id(true);
 
-    $_SESSION['utilisateur_id']   = $utilisateur['id'];
-    $_SESSION['utilisateur_nom']  = $utilisateur['nom_complet'];
+    $_SESSION['utilisateur_id'] = $utilisateur['id'];
+    $_SESSION['utilisateur_nom'] = $utilisateur['nom_complet'];
     $_SESSION['utilisateur_role'] = $utilisateur['role'];
 
     journaliser((int) $utilisateur['id'], 'CONNEXION', 'Connexion réussie de ' . $utilisateur['identifiant']);
@@ -104,8 +104,7 @@ function exigerConnexion(array $rolesAutorises = []): void
     }
 
     if (!empty($rolesAutorises) && !in_array($_SESSION['utilisateur_role'], $rolesAutorises, true)) {
-        http_response_code(403);
-        die("Accès refusé : votre rôle (" . e($_SESSION['utilisateur_role']) . ") n'a pas accès à cette page.");
+        rediriger('/impots-locaux-sn/public/erreur_403.php');
     }
 }
 
