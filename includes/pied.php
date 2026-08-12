@@ -6,12 +6,24 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
 <script>
-    // Sur mobile/tablette, la sidebar est cachée par défaut : ce bouton la fait apparaître/disparaître.
     const boutonBascule = document.getElementById('boutonBasculerSidebar');
+    const sidebar = document.getElementById('sidebar');
+
     if (boutonBascule) {
         boutonBascule.addEventListener('click', function () {
-            document.getElementById('sidebar').classList.toggle('sidebar-ouverte');
+            sidebar.classList.toggle('sidebar-ouverte');
+        });
+    }
+
+    // Referme automatiquement la sidebar mobile dès qu'on clique un lien de navigation,
+    // pour ne pas la laisser ouverte par-dessus la page suivante.
+    if (sidebar) {
+        sidebar.querySelectorAll('.sidebar-nav a').forEach(function (lien) {
+            lien.addEventListener('click', function () {
+                sidebar.classList.remove('sidebar-ouverte');
+            });
         });
     }
 </script>
