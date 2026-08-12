@@ -84,5 +84,5 @@ impots-locaux-sn/
 - [x] Étape 7 — Calcul Patente
 - [x] Étape 8 — Calcul TEOM et vignette
 - [X] Étape 9 — Tableau de bord et graphiques
-- [ ] Étape 10 — Exports PDF / CSV
+- [x] Étape 10 — Exports PDF / CSV
 - [ ] Étape 11 — Sécurisation, responsive, finitions
