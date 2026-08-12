@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/img/" alt="Logo ImpôtsLocaux-SN" width="480">
+  <img src="assets/img/logo.svg" alt="Logo ImpôtsLocaux-SN" width="480">
 </p>
 
 <p align="center">
