@@ -35,7 +35,10 @@ function lienActif(string $fichier, string $pageActuelle): string
 
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
-                <i class="bi bi-bank2"></i> <span>ImpôtsLocaux-SN</span>
+                <span><i class="bi bi-bank2"></i> ImpôtsLocaux-SN</span>
+                <button id="boutonFermerSidebar" class="sidebar-close-btn d-lg-none" aria-label="Fermer le menu">
+                    <i class="bi bi-x-lg"></i>
+                </button>
             </div>
 
             <nav class="sidebar-nav">
@@ -96,6 +99,8 @@ function lienActif(string $fichier, string $pageActuelle): string
             </div>
         </aside>
 
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        
         <div class="content-wrapper">
             <header class="topbar d-lg-none">
                 <button id="boutonBasculerSidebar" class="btn btn-outline-secondary btn-sm">

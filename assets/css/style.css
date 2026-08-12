@@ -447,9 +447,36 @@ body.page-connexion .card {
         flex: 0 0 100%;
         max-width: 100%;
     }
+
+    .sidebar-overlay.overlay-visible {
+        display: block;
+    }
 }
 
 /* Empêche le zoom automatique de Safari iOS quand on touche un champ de formulaire */
 .form-control, .form-select {
     font-size: max(0.92rem, 16px);
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.sidebar-close-btn {
+    background: none;
+    border: none;
+    color: #a8b0c3;
+    font-size: 1.1rem;
+    line-height: 1;
+    padding: 0.25rem;
+}
+.sidebar-close-btn:hover { color: #fff; }
+
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(15, 20, 35, 0.5);
+    z-index: 1025; /* sous la sidebar (1030), au-dessus du reste */
 }
