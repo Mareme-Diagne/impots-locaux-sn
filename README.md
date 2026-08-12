@@ -40,7 +40,9 @@ sénégalaises (CFPB, CFPNB, patentes, TEOM)*.
 
 > Tous les taux et seuils sont stockés dans la base de données (tables `bareme_taux`,
 > `bareme_patente_droit_fixe`, `bareme_vignette`) et non codés en dur dans le PHP. Si un taux
-> change avec la loi de finances, on modifie une ligne en base — aucun code à toucher.
+> change avec la loi de finances, on modifie une ligne en base — aucun code à toucher. Ces
+> tables sont d'ailleurs éditables directement depuis l'application (module *Barème des taux*,
+> réservé à l'administrateur).
 
 ## 3. Fonctionnalités
 
@@ -50,6 +52,12 @@ sénégalaises (CFPB, CFPNB, patentes, TEOM)*.
   véhicules — CRUD complet avec recherche, filtres et pagination
 - **Moteur de calcul fiscal** séparé de l'affichage, avec traçabilité du détail de chaque calcul
   (exonérations, abattements, taux appliqué)
+- **Suivi des taxations** : liste globale filtrable par taxe/statut/exercice, détail du calcul
+  consultable pour chaque ligne
+- **Encaissement des paiements** avec mise à jour automatique du statut de la taxation (émise →
+  partiellement payée → payée, ou en retard si l'échéance est dépassée)
+- **Barème des taux éditable** depuis l'interface (administrateur) : taux CFPB/CFPNB/TEOM,
+  tranches de droit fixe de la Patente, tranches de Vignette
 - **Tableau de bord** avec graphiques (Chart.js) : répartition par taxe, par statut, évolution
   mensuelle
 - **Exports** PDF (état officiel récapitulatif via FPDF) et CSV/Excel
@@ -92,15 +100,32 @@ sénégalaises (CFPB, CFPNB, patentes, TEOM)*.
 | Agent | `agent` | `Agent@2026` | Saisie, calculs, paiements |
 | Consultant | `consultant` | `Lecture@2026` | Lecture seule |
 
+## 6bis. Réinitialiser les données de test
+
+Pendant le développement ou les tests, il est utile de repartir sur des données propres sans
+tout supprimer/recréer. Le script `database/reinitialiser.sql` vide les données de test
+(contribuables, biens, activités, véhicules, taxations, paiements, journal d'audit) **sans
+toucher** aux comptes utilisateurs ni au barème des taux.
+
+**Utilisation** : phpMyAdmin → sélectionner la base `impots_locaux_sn` → onglet **SQL** →
+coller le contenu de `database/reinitialiser.sql` → **Exécuter**.
+
+Après exécution, la base retrouve son état de départ : 3 contribuables, 4 biens, 2 activités
+patentables, 1 véhicule, aucune taxation ni paiement.
+
 ## 7. Organisation du dépôt
+
+```
 impots-locaux-sn/
-├── assets/ CSS, JS (Chart.js), images (logo, favicon)
-├── config/ connexion à la base de données
-├── database/ schéma SQL, données de démonstration, script d'init des mots de passe
-├── includes/ authentification, sécurité, fonctions communes, moteurs de calcul
-├── public/ pages accessibles (point d'entrée du site)
-├── vendor/fpdf/ librairie FPDF (génération des PDF)
-└── exports/ fichiers générés (vide au départ)
+├── assets/             CSS, JS (Chart.js), images (logo, favicon)
+├── config/              connexion à la base de données
+├── database/            schéma SQL, données de démonstration, script d'init des mots de passe,
+│                         script de réinitialisation rapide
+├── includes/            authentification, sécurité, fonctions communes, moteurs de calcul
+├── public/               pages accessibles (point d'entrée du site)
+├── vendor/fpdf/         librairie FPDF (génération des PDF)
+└── exports/              fichiers générés (vide au départ)
+```
 
 ## 8. Modules de calcul
 
@@ -110,6 +135,7 @@ explicable indépendamment de l'interface :
 - `includes/calculs_foncier.php` → CFPB / CFPNB
 - `includes/calculs_patente.php` → Patente
 - `includes/calculs_teom_vignette.php` → TEOM / Vignette
+- `includes/paiements_utils.php` → recalcul automatique du statut d'une taxation
 
 Chaque fonction retourne le détail du calcul étape par étape (`detail_calcul`), conservé dans la
 table `taxations` pour la traçabilité.
@@ -125,6 +151,7 @@ table `taxations` pour la traçabilité.
 - [x] Tableau de bord et graphiques
 - [x] Exports PDF / CSV
 - [x] Sécurisation, responsive, finitions
+- [x] Modules Taxations, Paiements et Barème des taux
 
 ## 10. Auteurs
 
