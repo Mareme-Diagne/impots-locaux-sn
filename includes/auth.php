@@ -15,9 +15,11 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/fonctions.php';
+require_once __DIR__ . '/securite.php';
 
 function demarrerSession(): void
 {
+    envoyerEntetesSecurite();
     if (session_status() === PHP_SESSION_NONE) {
         // Options de sécurité de session : le cookie de session n'est
         // accessible ni en JavaScript (httponly) ni en HTTP non chiffré

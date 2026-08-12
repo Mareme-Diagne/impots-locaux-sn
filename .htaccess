@@ -1,0 +1,3 @@
+# Empêche Apache d'afficher la liste des fichiers d'un dossier qui n'a pas d'index
+# (ex: exports/), ce qui pourrait exposer des documents générés par d'autres utilisateurs.
+Options -Indexes

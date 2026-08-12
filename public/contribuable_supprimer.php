@@ -19,8 +19,11 @@ if (!$contribuable) {
 // La suppression réelle n'a lieu QUE sur une requête POST confirmée : un simple lien GET
 // (comme celui de la liste) ne fait qu'amener sur cette page de confirmation, il ne supprime rien.
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // ON DELETE CASCADE (défini dans schema.sql) supprime automatiquement biens/activités/
-    // véhicules/taxations liés — cohérence garantie par la base, pas par du code PHP fragile.
+    if (!verifierJetonCsrf($_POST['jeton_csrf'] ?? null)) {
+        http_response_code(403);
+        die('Requête invalide (jeton de sécurité manquant ou expiré). Retournez à la liste et réessayez.');
+    }
+
     $suppression = $pdo->prepare('DELETE FROM contribuables WHERE id = :id');
     $suppression->execute(['id' => $id]);
 
@@ -40,6 +43,7 @@ require __DIR__ . '/../includes/entete.php';
        activités, véhicules et taxations liés</strong>. Cette action est irréversible.</p>
     <form method="post">
         <input type="hidden" name="id" value="<?= $id ?>">
+        <input type="hidden" name="jeton_csrf" value="<?= e(jetonCsrf()) ?>">
         <button type="submit" class="btn btn-danger">Oui, supprimer définitivement</button>
         <a href="contribuables.php" class="btn btn-outline-secondary">Annuler</a>
     </form>

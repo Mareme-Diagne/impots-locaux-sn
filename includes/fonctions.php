@@ -53,3 +53,25 @@ function journaliser(?int $utilisateurId, string $action, string $details = ''):
         'ip'      => $_SERVER['REMOTE_ADDR'] ?? 'inconnue',
     ]);
 }
+
+/**
+ * Génère (ou réutilise) un jeton anti-CSRF unique pour la session en cours.
+ * A appeler dans un formulaire sensible (suppression, etc.) pour générer un champ caché.
+ */
+function jetonCsrf(): string
+{
+    if (empty($_SESSION['jeton_csrf'])) {
+        $_SESSION['jeton_csrf'] = bin2hex(random_bytes(32));
+    }
+    return $_SESSION['jeton_csrf'];
+}
+
+/**
+ * Vérifie que le jeton soumis correspond à celui de la session — sinon, la requête
+ * ne vient probablement pas d'un vrai formulaire de ce site.
+ */
+function verifierJetonCsrf(?string $jetonSoumis): bool
+{
+    return !empty($_SESSION['jeton_csrf']) && !empty($jetonSoumis)
+        && hash_equals($_SESSION['jeton_csrf'], $jetonSoumis);
+}

@@ -1,0 +1,2 @@
+# Librairie tierce (FPDF) — utilisée uniquement via require_once, pas d'accès direct nécessaire.
+Require all denied

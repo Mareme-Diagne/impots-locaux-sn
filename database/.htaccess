@@ -1,0 +1,6 @@
+# On bloque uniquement le fichier .sql (qui contiendrait le schéma complet de la base si on
+# le laissait ouvert) mais PAS les .php de ce dossier : init_mots_de_passe.php doit rester
+# accessible une fois depuis le navigateur (voir README, étape d'installation).
+<FilesMatch "\.sql$">
+    Require all denied
+</FilesMatch>

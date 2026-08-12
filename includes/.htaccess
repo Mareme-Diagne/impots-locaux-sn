@@ -1,0 +1,2 @@
+# Fichiers d'inclusion uniquement (auth, fonctions, calculs) — jamais appelés directement.
+Require all denied

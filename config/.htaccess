@@ -1,0 +1,3 @@
+# Ce dossier ne contient que des fichiers d'inclusion (connexion DB, identifiants).
+# Personne ne doit jamais pouvoir les ouvrir directement depuis un navigateur.
+Require all denied
